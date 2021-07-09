@@ -10,4 +10,5 @@ end
 
 img = Magick::Image::read("test/scaled.jpg")[0]
 
-get_slope(img)
+sat = SatelliteImage.new(img)
+puts sat.get_slope
