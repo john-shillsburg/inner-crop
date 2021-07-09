@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rmagick'
-require_relative 'src/utility.rb'
+require_relative 'src/satellite_image.rb'
 
 img = Magick::Image::read("test/satellite.jpg")[0]
 
@@ -12,3 +12,5 @@ img = Magick::Image::read("test/scaled.jpg")[0]
 
 sat = SatelliteImage.new(img)
 puts sat.get_slope
+puts sat.get_corner
+
