@@ -8,54 +8,19 @@ class SatelliteImage
     @img = img
     @width
     @height
-    @corner = Array.new
+    @top_left = Array.new
+    @top_right = Array.new
+    @bottom_left = Array.new
+    @bottom_right = Array.new
 
     @img.each_pixel do |pixel, col, row|
       if pixel.red > 4000 && pixel.green > 4000 && pixel.blue > 4000
-        @width = @img.columns - col 
-        @corner.push(row) 
+        @top_left.push(col)
+        @top_left.push(row)
         break
       end
     end
-
-    @img.each_pixel do |pixel, col, row|
-      if col == @img.columns - 2
-        if pixel.red > 1000 && pixel.green > 1000 && pixel.blue > 1000
-          @height = @img.rows - row
-          @corner.push(row)
-          break
-        end
-      end
-    end
-  end
-
-  def get_slope
-    if @width > @height
-      return @width / @height
-    else
-      return @height / @width
-    end
-  end
-
-  # retutn the x, y co
-  def get_corner
-    return @corner
-  end
-
-  def unrotate
-    pixels = @img.get_pixels(0, 0, @img.columns, @img.rows)
-    # go over slope then down 1.  repeat until @width
-    unrotated = Array.new
-    pixels.each do |pixel|
-      if(pixel.red > 1000 && pixel.green > 1000 && pixel.blue > 1000)
-        unrotated.push(pixel)
-      end
-    end
-    puts pixels.length
-    puts unrotated.length
-    puts "height: #{@height} width: #{@width}"
-    img = Magick::Image.constitute(@width, @height, "RGB", unrotated)
-    img.write("unrotated.jpg")
+    puts @top_left
   end
 end
 
