@@ -11,4 +11,5 @@ end
 img = Magick::Image::read("test/scaled.jpg")[0]
 
 sat = SatelliteImage.new(img)
+sat.rotate()
 
