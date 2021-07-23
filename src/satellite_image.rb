@@ -27,7 +27,6 @@ class SatelliteImage
         end
       end
     end
-    pry
     @angle = Math.atan(Float(@top_right[1]) / (Float(@img.columns) - Float(@top_left[0])))
     @angle = @angle * 180 / Math::PI
   end
@@ -35,6 +34,19 @@ class SatelliteImage
   def rotate()
     rotated = @img.rotate(-@angle)
     rotated.write("rotated.jpg")
+    # top_left.x = the amount to trim from side
+    # top_right.y = the amount to trim from top and bottom
+    chopped = rotated.crop(@top_left[0], @top_right[1], @img.columns, @img.rows)
+    #chopped = rotated.crop(0, 0, @top_right[0], @img.rows)
+    chopped.write("chopped.jpg")
+  end
+
+  def top_left
+    return @top_left
+  end
+
+  def top_right
+    return @top_right
   end
 end
 
